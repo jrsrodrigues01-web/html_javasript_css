@@ -33,11 +33,11 @@ function irPara(rota) {
 }
 
 function mostrarInicio() {
-  
-let jogos = '<main class="container-jogos">';
+
+  let jogos = '<main class="container-jogos">';
 
   jogosIniciais.forEach(jogo => {
-    
+
     const Favorito = JogosFavoritos.includes(jogo.nome) ? "favorito" : "";
 
     jogos += `
@@ -58,7 +58,7 @@ let jogos = '<main class="container-jogos">';
   });
 
   jogos += '</main>';
-  
+
   app.innerHTML = jogos;
 }
 
@@ -169,7 +169,7 @@ function renderizarTabela() {
       const indice = Number(this.dataset.indice);
       Usuario.splice(indice, 1);
 
-    localStorage.setItem("usuarios_cadastrados", JSON.stringify(Usuario))
+      localStorage.setItem("usuarios_cadastrados", JSON.stringify(Usuario))
 
       renderizarTabela();
     });
@@ -188,15 +188,24 @@ function mostrarJogos() {
 
   let itensLista = "";
   JogosFavoritos.forEach(jogo => {
-    itensLista += `<li> Imagens do jogo <strong>${jogo}</strong></li>`;
+    itensLista += `
+    <li> Imagens do jogo <strong>${jogo}</strong></li>`;
   });
 
   app.innerHTML = `
     <h1>Meus Favoritos</h1>
-    <p>Estes são os jogos salvos na sua lista:</p>
-    <ul style="list-style: none; padding: 0; margin-top: 20px; font-size: 1.2rem; line-height: 2;">
-      ${itensLista}
-    </ul>
+    <main class="card-jogos">
+      ${jogosIniciais.filter(jogo => JogosFavoritos.includes(jogo.nome)).map(jogo => `
+        <div class="painel-jogo">
+         
+          <img src="${jogo.imagem}" alt="${jogo.nome}">
+                  <div class="info-jogo">
+                  <h1>${jogo.nome}</h1>
+                  <p>${jogo.desc}</p>
+                 </div>
+        </div>
+      `).join('')}
+    </main>
   `;
 }
 
@@ -204,13 +213,13 @@ function alternarFavorito(botao, nomeJogo) {
   botao.classList.toggle('favorito');
 
   if (botao.classList.contains('favorito')) {
-   
+
     if (!JogosFavoritos.includes(nomeJogo)) {
       JogosFavoritos.push(nomeJogo);
     }
     console.log(`${nomeJogo} adicionado aos favoritos!`);
   } else {
-    
+
     const indice = JogosFavoritos.indexOf(nomeJogo);
     if (indice !== -1) {
       JogosFavoritos.splice(indice, 1);
