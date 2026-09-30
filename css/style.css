@@ -260,6 +260,7 @@ th {
   align-items: center;
   justify-content: center;
   background-color: #2a2a2a;
+  object-fit: cover;
 }
 
 .img-capa {

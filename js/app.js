@@ -197,8 +197,7 @@ function mostrarJogos() {
     <main class="card-jogos">
       ${jogosIniciais.filter(jogo => JogosFavoritos.includes(jogo.nome)).map(jogo => `
         <div class="painel-jogo">
-         
-          <img src="${jogo.imagem}" alt="${jogo.nome}">
+                  <img src="${jogo.imagem}" alt="${jogo.nome}">
                   <div class="info-jogo">
                   <h1>${jogo.nome}</h1>
                   <p>${jogo.desc}</p>
