@@ -68,13 +68,23 @@ function mostrarCadastro() {
 
     <form id="formUsuario">
       <div class="campo">
-        <label for="nome">Nome</label>
+        <label for="nome">Nome completo</label>
         <input id="nome" type="text" placeholder="Digite o nome do usuário" required />
       </div>
 
       <div class="campo">
         <label for="email">Email</label>
         <input id="email" type="email" placeholder="Digite o email" required />
+      </div>
+
+      <div class="campo">
+        <label for="data">Data de Nascimento</label>
+        <input id="data" type="date" placeholder="Digite a data de nascimento" required />
+      </div>
+
+      <div class="campo">
+        <label for="cpf">CPF</label>
+        <input id="cpf" type="text" placeholder="Digite o CPF" inputmode="numeric" maxlength="11" pattern="{11}" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);" required />
       </div>
 
       <div class="campo">
@@ -92,11 +102,15 @@ function mostrarCadastro() {
 
     const nome = document.querySelector("#nome").value.trim();
     const email = document.querySelector("#email").value.trim();
+    const data = document.querySelector("#data").value.trim();
+    const cpf = document.querySelector("#cpf").value.trim();
     const senha = document.querySelector("#senha").value.trim();
 
     Usuario.push({
       nome,
       email,
+      data,
+      cpf,
       senha,
     });
 
@@ -143,6 +157,8 @@ function renderizarTabela() {
       <tr>
         <td>${usuario.nome}</td>
         <td>${usuario.email}</td>
+        <td>${usuario.cpf}</td>
+        <td>${usuario.data}</td>
         <td>
           <button class="excluir" data-indice="${indice}">Excluir</button>
         </td>
@@ -156,6 +172,9 @@ function renderizarTabela() {
         <tr>
           <th>Nome</th>
           <th>Email</th>
+          <th>CPF</th>
+          <th>Data de Nascimento</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -202,10 +221,11 @@ function mostrarJogos() {
                   <h1>${jogo.nome}</h1>
                   <p>${jogo.desc}</p>
                  </div>
-        </div>
+          </div>
       `).join('')}
     </main>
   `;
+
 }
 
 function alternarFavorito(botao, nomeJogo) {
